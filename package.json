@@ -1,0 +1,33 @@
+{
+  "name": "js_utils",
+  "version": "1.0.0",
+  "description": "Javascript reusable utilities.",
+  "main": "index.ts",
+  "scripts": {
+    "build": "npx tsc",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pgirald/JS_UTILS.git"
+  },
+  "keywords": [
+    "Javascript",
+    "Utils"
+  ],
+  "author": "pgirald",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pgirald/JS_UTILS/issues"
+  },
+  "homepage": "https://github.com/pgirald/JS_UTILS#readme",
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@babel/preset-typescript": "^7.26.0",
+    "@jest/globals": "^29.7.0",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "typescript": "^5.7.2"
+  }
+}
