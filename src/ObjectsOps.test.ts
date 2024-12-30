@@ -1,5 +1,6 @@
-import { expect, test } from "@jest/globals";
+import { expect, jest, test } from "@jest/globals";
 import {
+	forEachObj,
 	getKeys,
 	getPage,
 	InvalidParamsError,
@@ -95,6 +96,39 @@ test.each<{
 	} else if (expected instanceof Error) {
 		expect(() => range(start, end)).toThrow((expected as any).constructor);
 	}
+});
+
+test.each<{ obj: Object }>`
+	obj
+	${{ a: 1, b: 2 }}
+	${{ a: 1, b: { c: 2, d: 3 } }}
+	${{ a: null, b: 42, c: "string", d: { e: null } }}
+	${{ a: 1, get self() {
+		return this;
+	} }}
+	${{ a: 1, get self() {
+		return this;
+	} }}
+	${{ a: 1, b: { c: 2, d: 3 }, e: { f: 2, get g() {
+			return this.e;
+		}, get h() {
+			return this.b;
+		} }, get i() {
+		return this;
+	}, j: {} }}
+	${(function () {
+	const obj = { a: 1, b: { c: 2, d: 3 }, e: { f: 2 } };
+	(obj.e as any).g = obj.e;
+	(obj as any).h = obj;
+	return obj;
+})()}
+`("Check each object is called exactly once", ({ obj }) => {
+	const objs: Set<Object> = new Set<Object>();
+	const callback = jest.fn((obj: Object) => {
+		objs.add(obj);
+	});
+	forEachObj(obj, callback);
+	expect(objs.size).toBe(callback.mock.calls.length);
 });
 
 test.each<{

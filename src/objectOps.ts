@@ -40,7 +40,9 @@ export function getPage<T>(
 ): [T[], boolean] {
 	if (!Number.isInteger(page) || !Number.isInteger(count)) {
 		throw new Error(
-			`Both the ${nameOf({ page })} and ${nameOf({ count })} parameters must be integers`
+			`Both the ${nameOf({ page })} and ${nameOf({
+				count,
+			})} parameters must be integers`
 		);
 	}
 	if (count < 0) {
@@ -83,4 +85,27 @@ export function nameOf<T extends object>(o: SinglePropertyObject<T>) {
 
 export function typedKeys<T extends object>(obj: T): (keyof T)[] {
 	return Object.keys(obj) as (keyof T)[];
+}
+
+export function forEachObj(
+	obj: Object,
+	callback: (obj: Object) => any
+): void {
+	const seen = new Set();
+	let value: any;
+
+	function deepReplace(obj) {
+		if (typeof obj !== "object" || seen.has(obj)) {
+			return;
+		}
+		callback(obj);
+		seen.add(obj);
+		for (const key in obj) {
+			if (obj.hasOwnProperty(key) && typeof (value = obj[key]) === "object") {
+				deepReplace(value);
+			}
+		}
+	}
+
+	deepReplace(obj);
 }
