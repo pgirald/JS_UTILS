@@ -2,10 +2,13 @@
   "name": "js_utils",
   "version": "1.0.0",
   "description": "Javascript reusable utilities.",
-  "main": "index.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.ts",
   "scripts": {
-    "build": "npx tsc",
-    "test": "jest"
+    "build": "npx tsc && npx tsc --project tsconfig.esm.json",
+    "test": "jest",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",

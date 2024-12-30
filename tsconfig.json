@@ -1,12 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "target": "ES2021",
+    "outDir": "dist/cjs",
     "declaration": true,
+    "declarationDir": "dist/types",
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -17,8 +14,11 @@
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true
   },
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.test.js"
+  ],
   "include": [
     "src"
   ]
