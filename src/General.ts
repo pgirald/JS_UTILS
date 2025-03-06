@@ -40,8 +40,13 @@ export function Gen(start: number = 1) {
 		next() {
 			return current++;
 		},
-		reset() {
-			current = st;
+		reset(start?: number) {
+			if (!start) {
+				current = st;
+				return;
+			}
+			validate(start);
+			current = st = start;
 		},
 		set start(value: number) {
 			validate(value);
